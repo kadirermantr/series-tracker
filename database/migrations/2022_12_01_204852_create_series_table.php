@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('season');
             $table->unsignedSmallInteger('episode');
             $table->timestamp('time');
+            $table->boolean('is_finish');
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });
