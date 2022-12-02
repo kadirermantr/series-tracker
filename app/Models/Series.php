@@ -20,5 +20,15 @@ class Series extends Model
         'episode',
         'time',
         'is_finish',
+        'user_id',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'time' => 'string',
     ];
 }

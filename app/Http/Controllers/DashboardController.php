@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Series;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -13,6 +15,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard', [
+            'seriesAll' => Series::where('user_id', Auth::id())->get(),
+        ]);
     }
 }

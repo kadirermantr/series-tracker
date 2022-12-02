@@ -17,10 +17,10 @@ return new class extends Migration
         Schema::create('series', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedSmallInteger('season');
-            $table->unsignedSmallInteger('episode');
-            $table->timestamp('time');
-            $table->boolean('is_finish');
+            $table->unsignedSmallInteger('season')->nullable();
+            $table->unsignedSmallInteger('episode')->nullable();
+            $table->time('time')->nullable();
+            $table->boolean('is_finish')->default(false);
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });

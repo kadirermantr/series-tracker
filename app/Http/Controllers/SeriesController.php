@@ -2,21 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\SeriesRequest;
+use App\Models\Series;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class SeriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return View
-     */
-    public function index()
-    {
-        return view('series.index');
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -30,11 +22,22 @@ class SeriesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param SeriesRequest $request
+     * @return View
      */
-    public function store(Request $request)
+    public function store(SeriesRequest $request)
     {
-        // TODO: add function body
+        Series::create([
+            'name' => $request->name,
+            'season' => $request->season,
+            'episode' => $request->episode,
+            'time' => $request->time,
+            'user_id' => Auth::id(),
+        ]);
+
+        return view('dashboard', [
+            'seriesAll' => Series::where('user_id', Auth::id())->get(),
+        ]);
     }
 
     /**
@@ -42,20 +45,32 @@ class SeriesController extends Controller
      *
      * @return View
      */
-    public function show()
+    public function show(Series $series)
     {
-        return view('series.show');
+        return view('series.show', [
+            'series' => $series,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param SeriesRequest $request
+     * @param Series $series
+     * @return View
      */
-    public function update(Request $request, int $id)
+    public function update(SeriesRequest $request, Series $series)
     {
-        // TODO: add function body
+        $series->update([
+            'name' => $request->name,
+            'season' => $request->season,
+            'episode' => $request->episode,
+            'time' => $request->time,
+        ]);
+
+        return view('dashboard', [
+            'seriesAll' => Series::where('user_id', Auth::id())->get(),
+        ]);
     }
 
     /**
