@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriesRequest;
 use App\Models\Series;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class SeriesController extends Controller
@@ -27,16 +26,18 @@ class SeriesController extends Controller
      */
     public function store(SeriesRequest $request)
     {
-        Series::create([
+        $series = Series::make([
             'name' => $request->name,
             'season' => $request->season,
             'episode' => $request->episode,
             'time' => $request->time,
-            'user_id' => Auth::id(),
         ]);
 
+        $series->user()->associate($request->user());
+        $series->save();
+
         return view('dashboard', [
-            'seriesAll' => Series::where('user_id', Auth::id())->get(),
+            'seriesAll' => $request->user()->series,
         ]);
     }
 
@@ -69,7 +70,7 @@ class SeriesController extends Controller
         ]);
 
         return view('dashboard', [
-            'seriesAll' => Series::where('user_id', Auth::id())->get(),
+            'seriesAll' => $request->user()->series,
         ]);
     }
 
