@@ -16,10 +16,6 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('series.index')" :active="request()->routeIs('series.index')">
-                        {{ __('Series') }}
-                    </x-nav-link>
-
                     <x-nav-link :href="route('series.create')" :active="request()->routeIs('series.create')">
                         {{ __('Add Series') }}
                     </x-nav-link>
@@ -53,7 +49,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Logout') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -99,7 +95,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Logout') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
